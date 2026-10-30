@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad de Selectores</title>
+    <style>
+        .caja {
+            width: 100px;
+            height: 100px;
+            background-color: lightblue;
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 id="titulo">Manipulación de DOM</h1>
+    <div class="caja"></div>
+    <div class="caja"></div>
+    <div class="caja"></div>
+    <button id="cambiarColor">Cambiar color de las cajas</button>
+    <button id="cambiarTexto">Cambiar texto del título</button>
+
+<script>
+let botonTexto = document.getElementById("cambiarTexto");
+let titulo = document.getElementById("titulo");
+botonTexto.addEventListener("click", function() {
+    titulo.textContent = "¡Hola soy Val!";
+});
+
+let botonColor = document.getElementById("cambiarColor");  
+let cajas = document.getElementsByClassName("caja");
+botonColor.addEventListener("click", function()
+{for (let i = 0; i < cajas.length; i++) {
+    cajas[i].style.backgroundColor = "green";}
+});
+
+let primeraCaja = document.querySelector(".caja");
+primeraCaja.style.backgroundColor = "purple";
+
+let todasLasCajas = document.querySelectorAll(".caja");
+todasLasCajas.forEach(caja => {
+    caja.style.border = "2px solid pink";
+});
+
+</script>
+    <script src="script.js"></script>
+</body>
+
+</html>

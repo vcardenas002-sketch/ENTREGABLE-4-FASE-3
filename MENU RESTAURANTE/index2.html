@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>Menú del Restaurante</title>
+
+<meta name="description" content="Restaurante Asiatico- México con venta de sushi y ramens." />
+<meta name="keywords" content="ramen, sushi, tepayankis" />
+<meta name="author" content="Valeria Cárdenas Pérez" />
+<meta name="copyright" content="Valeria Cárdenas Pérez" />
+
+<link rel="stylesheet" href="css/bootstrap.rtl.min.css" />
+
+<style>
+    img {
+    max-width: 100%;
+    height: auto;
+    }
+
+    .logo img {
+    width: 400px;
+    max-width: 100%;
+    height: auto;
+    }
+
+    .carousel-item img {
+    max-height: 450px;
+    object-fit: cover;
+    margin: 0 auto;
+    }
+
+    .item-menu {
+    height: 100%;
+    padding: 1rem;
+    border: 1px solid #dee2e6;
+    border-radius: .5rem;
+    margin-bottom: 1rem;
+    }
+
+    .item-menu h3 {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: .5rem;
+    }
+
+    .tabla-responsive {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      min-width: 360px;
+    }
+
+    footer {
+      margin-top: 2rem;
+      padding: 1rem;
+      background-color: #f8f9fa;
+    }
+
+    @media (max-width: 575.98px) {
+      h1 {
+        font-size: 1.7rem;
+      }
+
+      .btn {
+        margin-bottom: .35rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container text-primary py-3">
+
+    <!-- ENCABEZADO -->
+    <header class="row align-items-center g-3 text-center text-md-start">
+
+      <div class="col-12 col-md-5">
+        <div class="logo">
+          <img src="logo.png" alt="Logo del restaurante" width="400" height="200" />
+        </div>
+      </div>
+
+      <div class="col-12 col-md-7">
+        <h1>Restaurante Delicioso</h1>
+
+        <nav class="d-flex flex-wrap justify-content-center justify-content-md-start gap-2">
+          <a href="#entradas" class="text-decoration-none">
+            <button class="btn btn-primary" type="button">Entradas</button>
+          </a>
+
+          <a href="#platos" class="text-decoration-none">
+            <button class="btn btn-secondary" type="button">Platos fuertes</button>
+          </a>
+
+          <a href="#postres" class="text-decoration-none">
+            <button class="btn btn-success" type="button">Postres</button>
+          </a>
+
+          <a href="#contacto" class="text-decoration-none">
+            <button class="btn btn-danger" type="button">Contacto</button>
+          </a>
+        </nav>
+      </div>
+
+    </header>
+
+    <!-- BARRA DE NAVEGACIÓN -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary my-3">
+      <div class="container-fluid">
+
+        <a class="navbar-brand" href="#">Navbar</a>
+
+        <button class="navbar-toggler" type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup"
+          aria-expanded="false"
+          aria-label="Toggle navigation">
+
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link" href="#">Features</a>
+            <a class="nav-link" href="#">Pricing</a>
+            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+          </div>
+        </div>
+
+      </div>
+    </nav>
+
+    <!-- CARRUSEL RESPONSIVO -->
+    <div class="row g-3">
+
+      <div class="col-12">
+        <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+
+          <div class="carousel-inner">
+
+            <div class="carousel-item active">
+              <img src="RAMEN.jpg" class="d-block img-fluid w-100" alt="Foto no disponible">
+            </div>
+
+            <div class="carousel-item">
+              <img src="SUSHI.jpg" class="d-block img-fluid w-100" alt="Foto no disponible">
+            </div>
+
+            <div class="carousel-item">
+              <img src="FIDEOS.jpg" class="d-block img-fluid w-100" alt="Foto no disponible">
+            </div>
+
+          </div>
+
+          <button class="carousel-control-prev" type="button"
+            data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Anterior</span>
+          </button>
+
+          <button class="carousel-control-next" type="button"
+            data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Siguiente</span>
+          </button>
+
+        </div>
+      </div>
+
+      <!-- BOTÓN DEL MODAL -->
+      <div class="col-12">
+
+        <button type="button" class="btn btn-primary"
+          data-bs-toggle="modal" data-bs-target="#modalExam">
+          Boton para abrir el modal
+        </button>
+
+        <!-- MODAL -->
+        <div class="modal fade" id="modalExam" tabindex="-1"
+          aria-labelledby="modalExamLabel" aria-hidden="true">
+
+          <div class="modal-dialog">
+            <div class="modal-content">
+
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalExamLabel">Oferta del mes</h1>
+
+                <button type="button" class="btn-close"
+                  data-bs-dismiss="modal" aria-label="Cerrar"></button>
+              </div>
+
+              <div class="modal-body">
+                Lleva 3 rollos por el precio de uno
+                <p>Contenido</p>
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"
+                  data-bs-dismiss="modal">Close</button>
+
+                <button type="button" class="btn btn-primary">
+                  Guardar cambios
+                </button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ALERTA -->
+      <div class="col-12">
+        <div class="alert alert-info" role="alert">
+          "El restaurante que prefiere Straykids y BTS
+        </div>
+
+        <p>Aquí tienes información adicional.</p>
+      </div>
+
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div class="contenido-principal mt-4">
+
+      <section id="menu">
+
+        <div class="accordion" id="accordion1">
+
+          <!-- ENTRADAS -->
+          <div class="accordion-item">
+
+            <h2 class="accordion-header">
+              <button class="accordion-button" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseOne"
+                aria-expanded="true"
+                aria-controls="collapseOne">
+                ENTRADAS
+              </button>
+            </h2>
+
+            <div id="collapseOne" class="accordion-collapse collapse show"
+              data-bs-parent="#accordion1">
+
+              <div class="accordion-body">
+
+                <article id="entradas">
+                  <h2>Entradas</h2>
+
+                  <div class="row g-3">
+
+                    <div class="col-12 col-md-6">
+                      <div class="item-menu">
+
+                        <h3>Ensalada César <span>$8.00</span></h3>
+
+                        <p>
+                          Lechuga romana, crotones, queso parmesano y aderezo césar.
+                        </p>
+
+                        <h4>Ingredientes</h4>
+
+                        <ul>
+                          <li>Lechuga romana</li>
+                          <li>Crutones</li>
+                          <li>Queso parmesano</li>
+                          <li>Aderezo César</li>
+                        </ul>
+
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                      <div class="item-menu">
+
+                        <h3>Sopa del Día <span>$6.50</span></h3>
+
+                        <p>
+                          Pregunta por nuestra deliciosa sopa casera del día.
+                        </p>
+
+                      </div>
+                    </div>
+
+                  </div>
+                </article>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- PLATOS FUERTES -->
+          <div class="accordion-item">
+
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseTwo"
+                aria-expanded="false"
+                aria-controls="collapseTwo">
+                PLATOS FUERTES
+              </button>
+            </h2>
+
+            <div id="collapseTwo" class="accordion-collapse collapse"
+              data-bs-parent="#accordion1">
+
+              <div class="accordion-body">
+
+                <article id="platos">
+                  <h2>Platos Fuertes</h2>
+
+                  <div class="row g-3">
+
+                    <div class="col-12 col-md-6">
+                      <div class="item-menu">
+
+                        <h3>Lomo Salteado <span>$14.00</span></h3>
+
+                        <p>
+                          Carne salteada con cebolla, tomate y papas fritas.
+                        </p>
+
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                      <div class="item-menu">
+
+                        <h3>Pollo a la Brasa <span>$13.00</span></h3>
+
+                        <p>
+                          Acompañado de papas doradas y ensalada fresca.
+                        </p>
+
+                        <h4>Preparación</h4>
+
+                        <ol>
+                          <li>Marinar el pollo.</li>
+                          <li>Colocar el pollo en la parrilla.</li>
+                          <li>Cocinar hasta que esté dorado.</li>
+                          <li>Servir con papas y ensalada.</li>
+                        </ol>
+
+                      </div>
+                    </div>
+
+                  </div>
+                </article>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- POSTRES -->
+          <div class="accordion-item">
+
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapsethree"
+                aria-expanded="false"
+                aria-controls="collapsethree">
+                POSTRES
+              </button>
+            </h2>
+
+            <div id="collapsethree" class="accordion-collapse collapse"
+              data-bs-parent="#accordion1">
+
+              <div class="accordion-body">
+
+                <article id="postres">
+                  <h2>Postres</h2>
+
+                  <div class="row g-3">
+
+                    <div class="col-12 col-md-6">
+                      <div class="item-menu">
+
+                        <h3>Tarta de Queso <span>$5.00</span></h3>
+
+                        <p>
+                          Con base de galleta y coulis de frutos rojos.
+                        </p>
+
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                      <div class="item-menu">
+
+                        <h3>Helado Artesanal <span>$4.50</span></h3>
+
+                        <p>
+                          Sabores variados de temporada.
+                        </p>
+
+                      </div>
+                    </div>
+
+                  </div>
+                </article>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- LISTA DE PRECIOS -->
+        <button class="btn btn-primary mt-3" type="button"
+          data-bs-toggle="collapse" data-bs-target="#collapse1"
+          aria-expanded="false" aria-controls="collapse1">
+          Lista de precios
+        </button>
+
+        <div class="collapse" id="collapse1">
+
+          <div class="card card-body mt-2">
+
+            <article id="tabla-precios">
+              <h2>Lista de precios</h2>
+
+              <div class="tabla-responsive">
+
+                <table class="table table-bordered table-striped">
+
+                  <thead>
+                    <tr>
+                      <th>Producto</th>
+                      <th>Precio</th>
+                      <th>Disponibilidad</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <tr>
+                      <td>Ensalada César</td>
+                      <td>$8.00</td>
+                      <td>Disponible</td>
+                    </tr>
+
+                    <tr>
+                      <td>Sopa del Día</td>
+                      <td>$6.50</td>
+                      <td>Disponible</td>
+                    </tr>
+
+                    <tr>
+                      <td>Lomo Salteado</td>
+                      <td>$14.00</td>
+                      <td>Disponible</td>
+                    </tr>
+
+                    <tr>
+                      <td>Pollo a la Brasa</td>
+                      <td>$13.00</td>
+                      <td>Disponible</td>
+                    </tr>
+
+                    <tr>
+                      <td>Tarta de Queso</td>
+                      <td>$5.00</td>
+                      <td>Disponible</td>
+                    </tr>
+
+                    <tr>
+                      <td>Helado Artesanal</td>
+                      <td>$4.50</td>
+                      <td>Disponible</td>
+                    </tr>
+                  </tbody>
+
+                </table>
+              </div>
+            </article>
+
+          </div>
+        </div>
+
+      </section>
+
+      <!-- PROMOCIÓN -->
+      <aside class="alert alert-warning mt-4">
+
+        <h4>Promoción del día</h4>
+
+        <p>
+          ¡Ordena un plato fuerte y recibe una bebida gratis!
+        </p>
+
+      </aside>
+
+    </div>
+
+    <!-- TARJETAS RESPONSIVAS -->
+    <div class="row g-3 mt-2">
+
+      <!-- CONTACTO -->
+      <div class="col-12 col-md-6 col-lg-4">
+
+        <div class="card h-100">
+
+          <div class="card-body">
+
+            <h5 class="card-title">Contacto</h5>
+
+            <p class="card-text">
+              Dirección: Calle Gourmet 123, Ciudad Sabor
+            </p>
+
+            <p>Teléfono: +123 456 7890</p>
+
+            <p>Email: contacto@restaurantedelicioso.com</p>
+
+            <a href="https://www.bing.com/search?FORM=D934DF&q=stray+kids&PC=D934"
+              class="btn btn-primary">
+              Visita la página de StrayKids
+            </a>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTÓN DEL BAR -->
+      <div class="col-12 col-md-6 col-lg-4 d-flex align-items-start">
+
+        <a href="bar.html" class="btn btn-info">
+          Visita nuestro bar
+        </a>
+
+      </div>
+
+      <!-- TARJETA RAMENOCOREA -->
+      <div class="col-12 col-md-6 col-lg-4">
+
+        <div class="card h-100">
+
+          <img
+            src="https://media.zenfs.com/es/animal_gourmet_468/81186cb973e8bd97bd5e19aaadf7dd47"
+            class="card-img-top img-fluid"
+            alt="RAMENOCOREA">
+
+          <div class="card-body">
+
+            <h5 class="card-title">RAMENOCOREA</h5>
+
+            <p class="card-text">Deliciosa .</p>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- PIE DE PÁGINA -->
+    <footer id="contacto" class="mt-4">
+
+    <div class="row g-3">
+
+        <div class="col-12 col-md-4">
+        <p>Dirección: Calle Gourmet 123, Ciudad Sabor</p>
+        </div>
+
+        <div class="col-12 col-md-4">
+        <p>Teléfono: +123 456 7890</p>
+        </div>
+
+        <div class="col-12 col-md-4">
+        <p>Email: contacto@restaurantedelicioso.com</p>
+        </div>
+
+    </div>
+
+    </footer>
+
+</div>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

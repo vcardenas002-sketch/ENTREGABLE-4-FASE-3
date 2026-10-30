@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Tienda - Carrito de Compras</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #f4f6f9;
+    }
+
+    .card {
+      border: none;
+      border-radius: 15px;
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card-img-top {
+      width: 100%;
+      height: 190px;
+      object-fit: contain;
+      padding: 15px;
+      background-color: white;
+    }
+
+    .card-body {
+      text-align: center;
+    }
+
+    .precio {
+      color: #198754;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .btn {
+      border-radius: 8px;
+    }
+
+    .carrito {
+      border-radius: 15px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-dark bg-dark p-3">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#">
+        🛍️ Mi Tienda
+      </a>
+
+      <span class="text-white">
+        🛒 Carrito
+        <span id="contador" class="badge bg-danger">0</span>
+      </span>
+    </div>
+  </nav>
+
+  <div class="container my-5">
+
+    <h2 class="text-center mb-4">Nuestros Productos</h2>
+
+    <!-- Cards -->
+    <div class="row g-4" id="productos"></div>
+
+    <!-- Carrito -->
+    <div class="card carrito shadow mt-5">
+      <div class="card-body text-start p-4">
+
+        <h3>🛒 Carrito de Compras</h3>
+        <hr>
+
+        <ul id="listaCarrito" class="list-group mb-3"></ul>
+
+        <h4 class="text-success">
+          Total: $<span id="total">0</span> MXN
+        </h4>
+
+        <div id="mensaje" class="mt-3"></div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+
+    // Productos con nuevas imágenes
+    const productos = [
+      {
+        id: 1,
+        nombre: "Laptop",
+        precio: 12000,
+        imagen: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600"
+      },
+      {
+        id: 2,
+        nombre: "Audífonos",
+        precio: 800,
+        imagen: "https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=600"
+      },
+      {
+        id: 3,
+        nombre: "Mouse",
+        precio: 350,
+        imagen: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=600"
+      },
+      {
+        id: 4,
+        nombre: "Teclado",
+        precio: 650,
+        imagen: "https://images.unsplash.com/photo-1595225476474-87563907a212?w=600"
+      },
+      {
+        id: 5,
+        nombre: "Monitor",
+        precio: 3500,
+        imagen: "https://images.unsplash.com/photo-1585792180666-f7347c490ee2?w=600"
+      }
+    ];
+
+    let carrito = [];
+
+    // Mostrar productos
+    function mostrarProductos() {
+      const contenedor = document.getElementById("productos");
+
+      productos.forEach(producto => {
+        contenedor.innerHTML += `
+          <div class="col-12 col-sm-6 col-md-4">
+            <div class="card shadow-sm h-100">
+
+              <img src="${producto.imagen}"
+                   class="card-img-top"
+                   alt="${producto.nombre}">
+
+              <div class="card-body">
+
+                <h5 class="card-title">${producto.nombre}</h5>
+
+                <p class="precio">$${producto.precio}</p>
+
+                <button
+                  id="btn-${producto.id}"
+                  class="btn btn-primary w-100"
+                  onclick="agregar(${producto.id})">
+                  Agregar al carrito
+                </button>
+
+              </div>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    // Agregar producto
+    function agregar(id) {
+
+      const producto = productos.find(p => p.id === id);
+
+      carrito.push(producto);
+
+      const boton = document.getElementById("btn-" + id);
+
+      boton.classList.remove("btn-primary", "btn-danger");
+      boton.classList.add("btn-success");
+      boton.innerText = "✓ Agregado";
+
+      document.getElementById("mensaje").innerHTML =
+        '<div class="alert alert-success">Producto agregado correctamente</div>';
+
+      actualizarCarrito();
+    }
+
+    // Eliminar producto
+    function eliminar(indice) {
+
+      const producto = carrito[indice];
+
+      carrito.splice(indice, 1);
+
+      const boton = document.getElementById("btn-" + producto.id);
+
+      const sigueEnCarrito = carrito.some(p => p.id === producto.id);
+
+      if (!sigueEnCarrito) {
+        boton.classList.remove("btn-success");
+        boton.classList.add("btn-danger");
+        boton.innerText = "Eliminado";
+      }
+
+      document.getElementById("mensaje").innerHTML =
+        '<div class="alert alert-danger">Producto eliminado correctamente</div>';
+
+      actualizarCarrito();
+    }
+
+    // Actualizar carrito
+    function actualizarCarrito() {
+
+      const lista = document.getElementById("listaCarrito");
+
+      lista.innerHTML = "";
+
+      let total = 0;
+
+      carrito.forEach((producto, indice) => {
+
+        total += producto.precio;
+
+        lista.innerHTML += `
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+
+            <span>
+              ${producto.nombre} - $${producto.precio}
+            </span>
+
+            <button class="btn btn-danger btn-sm"
+                    onclick="eliminar(${indice})">
+              Eliminar
+            </button>
+
+          </li>
+        `;
+      });
+
+      document.getElementById("contador").innerText = carrito.length;
+
+      document.getElementById("total").innerText =
+        total.toLocaleString("es-MX");
+    }
+
+    mostrarProductos();
+
+  </script>
+
+  <!-- Bootstrap JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

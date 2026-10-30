@@ -1,0 +1,492 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrimePlay | Películas y Series</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            background-color: #0f171e;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Barra de navegación */
+        .navbar {
+            background-color: #0f171e;
+            padding: 15px 5%;
+        }
+
+        .navbar-brand {
+            color: #00a8e1 !important;
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .nav-link {
+            color: #eeeeee !important;
+            margin-right: 12px;
+        }
+
+        .nav-link:hover {
+            color: #00a8e1 !important;
+        }
+
+        .search-box {
+            background-color: #253746;
+            border: 1px solid #52616b;
+            color: white;
+        }
+
+        .search-box::placeholder {
+            color: #cccccc;
+        }
+
+        /* Película principal */
+        .hero {
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            background:
+                linear-gradient(90deg, #0f171e 5%, rgba(15,23,30,.85) 40%, transparent 100%),
+                linear-gradient(0deg, #0f171e 0%, transparent 40%),
+                url("https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&w=1800&q=85");
+            background-size: cover;
+            background-position: center;
+            padding: 60px 7%;
+        }
+
+        .hero-content {
+            max-width: 520px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: bold;
+        }
+
+        .hero p {
+            font-size: 17px;
+            line-height: 1.6;
+        }
+
+        .btn-play {
+            background-color: white;
+            color: #111;
+            font-weight: bold;
+            padding: 12px 25px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        .btn-play:hover {
+            background-color: #00a8e1;
+            color: white;
+        }
+
+        .btn-info {
+            background-color: #354452;
+            color: white;
+            padding: 12px 22px;
+            border: none;
+        }
+
+        .btn-info:hover {
+            background-color: #526777;
+            color: white;
+        }
+
+        /* Secciones de películas */
+        .catalog {
+            padding: 25px 5%;
+        }
+
+        .section-title {
+            font-size: 23px;
+            font-weight: bold;
+            margin-bottom: 18px;
+        }
+
+        .movie-card {
+            background-color: #192530;
+            border: none;
+            border-radius: 8px;
+            overflow: hidden;
+            height: 100%;
+            transition: transform 0.3s;
+        }
+
+        .movie-card:hover {
+            transform: scale(1.04);
+        }
+
+        .movie-card img {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+        }
+
+        .movie-card .card-body {
+            padding: 12px;
+        }
+
+        .movie-card .card-title {
+            font-size: 15px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .movie-card .card-text {
+            color: #b8c5d1;
+            font-size: 12px;
+        }
+
+        .category {
+            color: #00a8e1;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        footer {
+            background-color: #0a1016;
+            color: #aab7c4;
+            text-align: center;
+            padding: 30px 15px;
+            margin-top: 40px;
+        }
+
+        footer a {
+            color: #00a8e1;
+            text-decoration: none;
+            margin: 0 8px;
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                min-height: 420px;
+                padding: 35px 6%;
+                background-position: center;
+            }
+
+            .hero p {
+                font-size: 14px;
+            }
+
+            .movie-card img {
+                height: 180px;
+            }
+
+            .section-title {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container-fluid">
+
+            <a class="navbar-brand" href="#">prime video</a>
+
+            <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#menu"
+                aria-controls="menu"
+                aria-expanded="false"
+                aria-label="Abrir menú">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="menu">
+
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Inicio</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#peliculas">Películas</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#series">Series</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#populares">Populares</a>
+                    </li>
+                </ul>
+
+                <form class="d-flex" role="search" id="searchForm">
+                    <input class="form-control search-box me-2"
+                        type="search"
+                        id="searchInput"
+                        placeholder="Buscar películas..."
+                        aria-label="Buscar películas">
+
+                    <button class="btn btn-outline-info" type="submit">
+                        Buscar
+                    </button>
+                </form>
+
+            </div>
+        </div>
+    </nav>
+
+    <!-- PORTADA PRINCIPAL -->
+    <header class="hero">
+        <div class="hero-content">
+
+            <span class="category">PRIME ORIGINAL</span>
+
+            <h1 class="mt-3">El mundo del cine</h1>
+
+            <p>
+                Descubre historias increíbles, aventuras emocionantes
+                y personajes que nunca olvidarás. Encuentra tu próxima
+                película favorita.
+            </p>
+
+            <p>
+                <strong>2026</strong> &nbsp; | &nbsp;
+                Acción, aventura y drama
+            </p>
+
+            <div class="d-flex flex-wrap gap-3">
+                <a href="#populares" class="btn btn-play">
+                    ▶ Ver películas
+                </a>
+
+                <a href="#series" class="btn btn-info">
+                    Más información
+                </a>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- PELÍCULAS POPULARES -->
+    <section class="catalog" id="populares">
+
+        <h2 class="section-title">Películas populares</h2>
+
+        <div class="row g-3" id="movieList">
+
+            <div class="col-6 col-md-4 col-lg-3 movie-item">
+                <div class="card movie-card">
+                    <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&w=600&q=80"
+                        class="card-img-top" alt="Sala de cine">
+                    <div class="card-body">
+                        <h5 class="card-title">La gran aventura</h5>
+                        <p class="card-text">2026 · Aventura</p>
+                        <span class="category">Recomendada para ti</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6 col-md-4 col-lg-3 movie-item">
+                <div class="card movie-card">
+                    <img src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=600&q=80"
+                        class="card-img-top" alt="Paisaje nocturno">
+                    <div class="card-body">
+                        <h5 class="card-title">Noche sin fin</h5>
+                        <p class="card-text">2025 · Suspenso</p>
+                        <span class="category">Éxito popular</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6 col-md-4 col-lg-3 movie-item">
+                <div class="card movie-card">
+                    <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=600&q=80"
+                        class="card-img-top" alt="Montañas y naturaleza">
+                    <div class="card-body">
+                        <h5 class="card-title">Horizonte perdido</h5>
+                        <p class="card-text">2026 · Drama</p>
+                        <span class="category">Nueva película</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6 col-md-4 col-lg-3 movie-item">
+                <div class="card movie-card">
+                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80"
+                        class="card-img-top" alt="Paisaje de aventura">
+                    <div class="card-body">
+                        <h5 class="card-title">Destino desconocido</h5>
+                        <p class="card-text">2025 · Acción</p>
+                        <span class="category">Más visto</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SERIES -->
+    <section class="catalog" id="series">
+
+        <h2 class="section-title">Series para maratonear</h2>
+
+        <div class="row g-3">
+
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="card movie-card">
+                    <img src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=600&q=80"
+                        alt="Cielo nocturno">
+                    <div class="card-body">
+                        <h5 class="card-title">Universo paralelo</h5>
+                        <p class="card-text">2 temporadas · Ciencia ficción</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="card movie-card">
+                    <img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=600&q=80"
+                        alt="Olas del mar">
+                    <div class="card-body">
+                        <h5 class="card-title">Misterios del océano</h5>
+                        <p class="card-text">1 temporada · Documental</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="card movie-card">
+                    <img src="https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=600&q=80"
+                        alt="Bosque">
+                    <div class="card-body">
+                        <h5 class="card-title">El último refugio</h5>
+                        <p class="card-text">3 temporadas · Drama</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="card movie-card">
+                    <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=600&q=80"
+                        alt="Lago entre montañas">
+                    <div class="card-body">
+                        <h5 class="card-title">Más allá del tiempo</h5>
+                        <p class="card-text">1 temporada · Aventura</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- PELÍCULAS DE ACCIÓN -->
+    <section class="catalog" id="peliculas">
+
+        <h2 class="section-title">Descubre más películas</h2>
+
+        <div class="row g-3">
+
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="card movie-card">
+                    <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=600&q=80"
+                        alt="Montañas al atardecer">
+                    <div class="card-body">
+                        <h5 class="card-title">Aventura salvaje</h5>
+                        <p class="card-text">2025 · Aventura</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="card movie-card">
+                    <img src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=600&q=80"
+                        alt="Amanecer en el campo">
+                    <div class="card-body">
+                        <h5 class="card-title">Un nuevo comienzo</h5>
+                        <p class="card-text">2026 · Romance</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="card movie-card">
+                    <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=600&q=80"
+                        alt="Lago y montañas">
+                    <div class="card-body">
+                        <h5 class="card-title">Tierra desconocida</h5>
+                        <p class="card-text">2025 · Suspenso</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="card movie-card">
+                    <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80"
+                        alt="Montañas nevadas">
+                    <div class="card-body">
+                        <h5 class="card-title">La última frontera</h5>
+                        <p class="card-text">2026 · Acción</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <h4 style="color: #00a8e1;">prime video</h4>
+
+        <p>Tu próximo entretenimiento está aquí.</p>
+
+        <div class="mb-3">
+            <a href="#">Términos y condiciones</a>
+            <a href="#">Privacidad</a>
+            <a href="#">Ayuda</a>
+        </div>
+
+        <small>
+            Proyecto escolar de diseño web. Sitio demostrativo no oficial.
+            &copy; 2026
+        </small>
+    </footer>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Buscador funcional -->
+    <script>
+        const searchForm = document.getElementById("searchForm");
+        const searchInput = document.getElementById("searchInput");
+        const movieItems = document.querySelectorAll(".movie-item");
+
+        searchForm.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const searchText = searchInput.value
+                .trim()
+                .toLowerCase();
+
+            movieItems.forEach(function(item) {
+                const title = item.querySelector(".card-title")
+                    .textContent.toLowerCase();
+
+                item.style.display =
+                    title.includes(searchText) ? "" : "none";
+            });
+
+            document.getElementById("populares").scrollIntoView({
+                behavior: "smooth"
+            });
+        });
+    </script>
+
+</body>
+</html>
